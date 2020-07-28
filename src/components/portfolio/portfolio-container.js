@@ -1,11 +1,11 @@
 import React, { Component } from "react";
+import axios from "axios";
 
-import PortfolioItem from "./portfolio-item.js";
+import PortfolioItem from "./portfolio-item";
 
 export default class PortfolioContainer extends Component {
   constructor() {
     super();
-
     this.state = {
       pageTitle: "Welcome to my portfolio",
       isLoading: false,
@@ -22,6 +22,7 @@ export default class PortfolioContainer extends Component {
     };
 
     this.handleFilter = this.handleFilter.bind(this);
+    this.getPortfolioItems = this.getPortfolioItems.bind(this);
   }
 
   handleFilter(filter) {
@@ -30,6 +31,17 @@ export default class PortfolioContainer extends Component {
         return item.category === filter;
       }),
     });
+  }
+
+  getPortfolioItems() {
+    axios
+      .get("https://xavierroberts.devcamp.space/portfolio/portfolio_items")
+      .then((response) => {
+        console.log("response data", response);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
   }
 
   portfolioItems() {
@@ -45,10 +57,11 @@ export default class PortfolioContainer extends Component {
       return <div>Loading...</div>;
     }
 
+    this.getPortfolioItems();
+
     return (
       <div>
         <h2>{this.state.pageTitle}</h2>
-
         <button onClick={() => this.handleFilter("eCommerce")}>
           eCommerce
         </button>
@@ -58,7 +71,6 @@ export default class PortfolioContainer extends Component {
         <button onClick={() => this.handleFilter("Enterprise")}>
           Enterprise
         </button>
-
         {this.portfolioItems()}
       </div>
     );
