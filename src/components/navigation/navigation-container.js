@@ -16,18 +16,26 @@ export default class NavigationComponent extends Component {
             </NavLink>
           </div>
           <div className="nav-link-wrapper">
-            <NavLink to="/about-me">About</NavLink>
+            <NavLink to="/about-me" activeClassName="nav-link-active">
+              About
+            </NavLink>
           </div>
           <div className="nav-link-wrapper">
-            <NavLink to="/contact">Contact</NavLink>
+            <NavLink to="/contact" activeClassName="nav-link-active">
+              Contact
+            </NavLink>
           </div>
           <div className="nav-link-wrapper">
-            <NavLink to="/blog">Blog</NavLink>
+            <NavLink to="/blog" activeClassName="nav-link-active">
+              Blog
+            </NavLink>
           </div>
         </div>
 
         {false ? <button>Add Blog</button> : null}
-        <div className="right-side">ajsdkljfa;ksdf</div>
+        <div className="right-side" activeClassName="nav-link-active">
+          ajsdkljfa;ksdf
+        </div>
       </div>
     );
   }
