@@ -33,9 +33,7 @@ export default class NavigationComponent extends Component {
         </div>
 
         {false ? <button>Add Blog</button> : null}
-        <div className="right-side" activeClassName="nav-link-active">
-          XAVIER ROBERTS
-        </div>
+        <div className="right-side">XAVIER ROBERTS</div>
       </div>
     );
   }
