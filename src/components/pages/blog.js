@@ -25,7 +25,7 @@ class Blog extends Component {
         window.innerHeight + document.documentElement.scrollTop ===
         document.documentElement.offsetHeight
       ) {
-        console.log("get more posts");
+        this.getBlogItems();
       }
     };
   }
@@ -34,11 +34,17 @@ class Blog extends Component {
     this.setState({
       currentPage: this.state.currentPage + 1,
     });
+
     axios
-      .get("https://xavierroberts.devcamp.space/portfolio/portfolio_blogs", {
-        withCredentials: true,
-      })
+      .get(
+        `https://xavierroberts.devcamp.space/portfolio/portfolio_blogs?page=${this.statecurrentPage}`,
+        {
+          withCredentials: true,
+        }
+      )
       .then((response) => {
+        console.log("getting", response.data);
+
         this.setState({
           blogItems: response.data.portfolio_blogs,
           totalCount: response.data.meta.total_records,
