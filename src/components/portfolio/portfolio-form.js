@@ -30,10 +30,15 @@ export default class PortfolioForm extends Component {
     this.handleThumbDrop = this.handleThumbDrop.bind(this);
     this.handleBannerDrop = this.handleBannerDrop.bind(this);
     this.handleLogoDrop = this.handleLogoDrop.bind(this);
+    this.deleteImage = this.deleteImage.bind(this);
 
     this.thumbRef = React.createRef();
     this.bannerRef = React.createRef();
     this.logoRef = React.createRef();
+  }
+
+  deleteImage(imageType) {
+    console.log("deleteImage", imageType);
   }
 
   componentDidUpdate() {
@@ -156,8 +161,9 @@ export default class PortfolioForm extends Component {
           banner_image: "",
           logo: "",
           editMode: false,
-          apiUrl: `https://xavierroberts.devcamp.space/portfolio/portfolio_items/${id}`,
-          apiAction: "patch",
+          apiUrl:
+            "https://xavierroberts.devcamp.space/portfolio/portfolio_items",
+          apiAction: "post",
         });
 
         [this.thumbRef, this.bannerRef, this.logoRef].forEach((ref) => {
@@ -227,6 +233,12 @@ export default class PortfolioForm extends Component {
           {this.state.thumb_image && this.state.editMode ? (
             <div className="portfolio-manager-image-wrapper">
               <img src={this.state.thumb_image} />
+
+              <div className="image-removal-link">
+                <a onClick={() => this.deleteImage("thumb_image")}>
+                  Remove file
+                </a>
+              </div>
             </div>
           ) : (
             <DropzoneComponent
@@ -239,9 +251,15 @@ export default class PortfolioForm extends Component {
             </DropzoneComponent>
           )}
 
-          {this.state.thumb_image && this.state.editMode ? (
+          {this.state.banner_image && this.state.editMode ? (
             <div className="portfolio-manager-image-wrapper">
               <img src={this.state.banner_image} />
+
+              <div className="image-removal-link">
+                <a onClick={() => this.deleteImage("banner_image")}>
+                  Remove file
+                </a>
+              </div>
             </div>
           ) : (
             <DropzoneComponent
@@ -254,9 +272,13 @@ export default class PortfolioForm extends Component {
             </DropzoneComponent>
           )}
 
-          {this.state.thumb_image && this.state.editMode ? (
+          {this.state.logo && this.state.editMode ? (
             <div className="portfolio-manager-image-wrapper">
               <img src={this.state.logo} />
+
+              <div className="image-removal-link">
+                <a onClick={() => this.deleteImage("logo")}>Remove file</a>
+              </div>
             </div>
           ) : (
             <DropzoneComponent
