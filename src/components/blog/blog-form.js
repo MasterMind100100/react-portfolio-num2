@@ -9,6 +9,7 @@ export default class BlogForm extends Component {
     super(props);
 
     this.state = {
+      id: "",
       title: "",
       blog_status: "",
       content: "",
@@ -28,12 +29,21 @@ export default class BlogForm extends Component {
     this.featuredImageRef = React.createRef();
   }
 
-  handleFeaturedImageDrop() {
+  componentWillMount() {
+    if (this.props.editMode) {
+      this.setState({
+        id: this.props.blog.id,
+        title: this.props.blog.title,
+        status: this.props.blog.status,
+      });
+    }
+  }
+
+  componentConfig() {
     return {
-      addedfile: (file) =>
-        this.setState({
-          featured_image: file,
-        }),
+      iconFiletypes: [".jpg", ".png"],
+      showFiletypeIcon: true,
+      postUrl: "https://httpbin.org/post",
     };
   }
 
@@ -44,11 +54,9 @@ export default class BlogForm extends Component {
     };
   }
 
-  componentConfig() {
+  handleFeaturedImageDrop() {
     return {
-      iconFiletypes: [".jpg", ".png"],
-      showFiletypeIcon: true,
-      postUrl: "https://httpbin.org/post",
+      addedfile: (file) => this.setState({ featured_image: file }),
     };
   }
 
@@ -84,6 +92,7 @@ export default class BlogForm extends Component {
         if (this.state.featured_image) {
           this.featuredImageRef.current.dropzone.removeAllFiles();
         }
+
         this.setState({
           title: "",
           blog_status: "",
